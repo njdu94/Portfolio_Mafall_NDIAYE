@@ -1,1 +1,818 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mafall NDIAYE — Portfolio de compétences</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#140a24;
+    --surface:#231238;
+    --line:#432a63;
+    --text:#fffaf5;
+    --muted:#c9a8e0;
+    --accent:#ff2e63;
+    --accent2:#ffb703;
+    --cyan:#00f5d4;
+    --purple:#9d4edd;
+    --pink:#ff0a8c;
+    --green:#06ffa5;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; overflow-anchor:none;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Space Grotesk',-apple-system,BlinkMacSystemFont,sans-serif;
+    line-height:1.6;
+  }
+  ::selection{background:var(--accent2); color:#0b0f16;}
+  a{color:inherit; text-decoration:none;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
 
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; border-bottom:1px solid var(--line);
+  }
+  .logo{font-weight:800; font-size:18px;}
+  .logo span{color:var(--accent2);}
+  .status{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--muted);}
+  .dot{width:7px; height:7px; border-radius:50%; background:var(--accent); flex-shrink:0; animation:pulse 2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,46,99,.5);} 50%{box-shadow:0 0 0 5px rgba(255,46,99,0);}}
+  .clock{font-size:13px; color:var(--accent);}
+
+  .shell{display:flex;}
+  aside{
+    width:230px; flex-shrink:0; padding:26px 18px; border-right:1px solid var(--line);
+    position:sticky; top:0; height:calc(100vh - 57px); overflow-y:auto;
+  }
+  .navlabel{font-size:11px; letter-spacing:.06em; color:var(--muted); margin:0 8px 14px;}
+  nav ul{list-style:none; margin:0; padding:0;}
+  nav li a{
+    display:flex; align-items:center; gap:12px; padding:11px 10px; border-radius:8px;
+    font-size:15px; color:var(--muted);
+  }
+  nav li a .ic{font-size:15px; width:18px; text-align:center;}
+  nav li a:hover{color:var(--text);}
+  nav li a.active{background:var(--surface); color:var(--text); font-weight:500; border-left:2px solid var(--accent); padding-left:8px;}
+
+  main{flex:1; padding:0 40px; max-width:1000px;}
+
+  #hero{padding:64px 0 70px;}
+  .hero-text{max-width:680px;}
+  .kicker{display:flex; align-items:center; gap:10px; color:var(--accent); font-size:14px; margin-bottom:18px;}
+  .kicker .rule{width:22px; height:1px; background:var(--accent);}
+  h1{font-size:clamp(38px,5.4vw,64px); line-height:1.05; font-weight:800; margin:0;}
+  h1 .last{color:var(--accent);}
+  .subtitle{font-size:17px; color:var(--text); margin:22px 0 16px;}
+  .desc{color:var(--muted); max-width:56ch; margin:0 0 26px;}
+  .badges{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:30px;}
+  .badge{
+    font-size:13px; padding:7px 16px; border-radius:20px; font-weight:500;
+    border:1px solid var(--line);
+  }
+  .b1{color:#ff6f91; background:rgba(255,46,99,.1); border-color:rgba(255,46,99,.3);}
+  .b2{color:#06ffa5; background:rgba(6,255,165,.1); border-color:rgba(6,255,165,.3);}
+  .b3{color:#ffb703; background:rgba(255,183,3,.1); border-color:rgba(255,183,3,.3);}
+  .b4{color:#c77dff; background:rgba(157,78,221,.1); border-color:rgba(157,78,221,.3);}
+
+  .cta{display:flex; flex-wrap:wrap; gap:12px;}
+  .btn{padding:13px 22px; border-radius:9px; font-size:14px; font-weight:600; border:1px solid var(--line);}
+  .btn-primary{background:var(--accent); color:#0b0f16; border-color:var(--accent);}
+  .btn-ghost{background:transparent; color:var(--text);}
+  .btn-cv{background:var(--surface); color:var(--accent2); display:flex; align-items:center; gap:8px;}
+
+  section.block{padding:60px 0; border-top:1px solid var(--line);}
+  h2{font-size:24px; margin:0 0 26px; display:flex; align-items:center; gap:12px;}
+  h2::before{content:''; width:20px; height:3px; border-radius:2px; background:linear-gradient(90deg,var(--accent),var(--cyan)); flex-shrink:0;}
+  p{color:var(--muted); margin:0 0 12px; max-width:58ch;}
+
+  .about-layout{display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap;}
+  .about-card{
+    flex:2; min-width:300px; background:var(--surface); border:1px solid var(--line);
+    border-radius:14px; padding:30px;
+  }
+  .about-card p{max-width:none; color:var(--text);}
+  .about-card strong{color:var(--text);}
+  .info-cards{flex:1; min-width:220px; display:flex; flex-direction:column; gap:14px;}
+  .info-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px;
+  }
+  .info-card .lbl{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; color:var(--muted); margin-bottom:6px;}
+  .info-card .val{font-size:15px; font-weight:700;}
+
+  .track{position:relative; padding-left:34px;}
+  .track::before{content:''; position:absolute; left:5px; top:10px; bottom:10px; width:1px; background:var(--line);}
+  .step{position:relative; padding-bottom:24px;}
+  .step:last-child{padding-bottom:0;}
+  .step::before{
+    content:''; position:absolute; left:-34px; top:26px; width:11px; height:11px; border-radius:50%;
+    background:var(--accent); box-shadow:0 0 0 4px rgba(255,46,99,.15), 0 0 12px rgba(255,46,99,.6);
+  }
+  .step-card{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:22px 24px;}
+  .step-meta{display:flex; align-items:center; gap:12px; margin-bottom:10px;}
+  .step-years{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--accent);}
+  .step-tag{font-size:12px; color:var(--muted); border:1px solid var(--line); border-radius:20px; padding:3px 12px;}
+  .step h3{margin:0 0 8px; font-size:17px;}
+  .step p{margin:0; max-width:62ch;}
+  .project{padding:22px 0; border-top:1px solid var(--line);}
+  .project:first-child{border-top:none;}
+  .project h3{margin:0 0 6px; font-size:19px;}
+  .stack{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent2); margin:8px 0 0;}
+
+  .projects-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .proj-card{background:var(--surface); border:1px solid var(--line); border-radius:14px; overflow:hidden;}
+  .proj-visual{
+    height:160px; display:flex; align-items:center; justify-content:center; font-size:48px;
+    position:relative;
+  }
+  .proj-visual::after{content:''; position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.08), transparent 60%);}
+  .v1{background:linear-gradient(135deg,#5e17eb,#ff2e63);}
+  .v2{background:linear-gradient(135deg,#00c2ff,#00f5d4);}
+  .v3{background:linear-gradient(135deg,#06ffa5,#00895c);}
+  .v4{background:linear-gradient(135deg,#ffb703,#ff5f1f);}
+  .proj-body{padding:22px 24px;}
+  .proj-meta{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent); margin-bottom:10px;}
+  .proj-body h3{margin:0 0 8px; font-size:18px;}
+  .proj-body p{margin:0 0 16px; max-width:none;}
+  .proj-tags{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+  .proj-tag{font-family:'IBM Plex Mono',monospace; font-size:12px; border-radius:20px; padding:5px 13px; border:1px solid;}
+  .proj-tag.t1{color:#ff6f91; background:rgba(255,46,99,.1); border-color:rgba(255,46,99,.3);}
+  .proj-tag.t2{color:#06ffa5; background:rgba(6,255,165,.1); border-color:rgba(6,255,165,.3);}
+  .proj-tag.t3{color:#ffb703; background:rgba(255,183,3,.1); border-color:rgba(255,183,3,.3);}
+  .proj-tag.t4{color:#c77dff; background:rgba(157,78,221,.1); border-color:rgba(157,78,221,.3);}
+  .proj-link{font-size:14px; color:var(--accent); font-weight:500;}
+  .proj-card{cursor:pointer; transition:border-color .15s;}
+  .proj-card:hover{border-color:var(--accent);}
+
+  /* project detail view */
+  #mainView, #detailView{overflow-anchor:none;}
+  #detailView{
+    display:none; position:fixed; top:57px; left:0; right:0; bottom:0;
+    z-index:40; background:var(--bg); overflow-y:auto;
+  }
+  #detailView.show{display:block;}
+  #detailView-inner{max-width:1000px; margin:0 auto; padding:28px 40px 60px;}
+  #mainView.hide{display:none;}
+  .detail-nav{padding:20px 0 0;}
+  .detail-back{font-size:14px; color:var(--accent); cursor:pointer; font-weight:500; background:none; border:none; padding:0;}
+  .detail-meta{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--accent); margin:26px 0 12px;}
+  .detail-title{font-size:clamp(28px,4.4vw,40px); font-weight:800; margin:0 0 10px;}
+  .detail-sub{font-size:16px; color:var(--muted); margin:0 0 26px;}
+  .obj-box{
+    background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:24px 26px;
+    display:flex; gap:16px; margin-bottom:34px;
+  }
+  .obj-box .diamond{color:var(--accent); font-size:16px; flex-shrink:0; margin-top:3px;}
+  .obj-box .lbl{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.05em; color:var(--accent); margin-bottom:6px;}
+  .obj-box h4{margin:0 0 10px; font-size:18px;}
+  .obj-box p{margin:0; max-width:none; color:var(--muted);}
+  .dsec{margin-bottom:30px;}
+  .dsec-h{font-size:18px; font-weight:700; margin:0 0 14px; display:flex; align-items:center; gap:8px;}
+  .dsec p{max-width:none; color:var(--muted);}
+  .dlist{list-style:none; margin:0; padding:0;}
+  .dlist li{position:relative; padding-left:20px; margin-bottom:10px; color:var(--muted);}
+  .dlist li::before{content:'▸'; position:absolute; left:0; color:var(--accent);}
+  #detailCompteRendu p{color:var(--muted); max-width:none; margin:0 0 14px; line-height:1.7;}
+  #detailCompteRendu p:last-child{margin-bottom:0;}
+  .pdf-btn{
+    display:inline-flex; align-items:center; gap:8px; margin-top:16px;
+    background:var(--surface); border:1px solid var(--accent); color:var(--accent);
+    padding:11px 18px; border-radius:9px; font-weight:600; font-size:14px;
+  }
+  .pdf-btn:hover{background:var(--accent); color:#0b0f16;}
+  .note-card{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin-bottom:22px;}
+  .note-card.retiens{border-left:3px solid #06ffa5;}
+  .note-card.axes{border-left:3px solid var(--accent2);}
+  .note-card h5{margin:0 0 10px; font-size:15px;}
+  .note-card p{font-style:italic; margin:0; color:var(--muted); max-width:none;}
+  .dtags{display:flex; flex-wrap:wrap; gap:8px; margin:24px 0 34px;}
+  .dtags span{font-family:'IBM Plex Mono',monospace; font-size:12px; border-radius:20px; padding:5px 13px; border:1px solid;}
+  .dtags span.t1{color:#ff6f91; background:rgba(255,46,99,.1); border-color:rgba(255,46,99,.3);}
+  .dtags span.t2{color:#06ffa5; background:rgba(6,255,165,.1); border-color:rgba(6,255,165,.3);}
+  .dtags span.t3{color:#ffb703; background:rgba(255,183,3,.1); border-color:rgba(255,183,3,.3);}
+  .dtags span.t4{color:#c77dff; background:rgba(157,78,221,.1); border-color:rgba(157,78,221,.3);}
+  .back-projects{
+    background:var(--surface); border:1px solid var(--line); color:var(--text); font-weight:600;
+    padding:12px 20px; border-radius:9px; cursor:pointer; font-size:14px; font-family:'Space Grotesk',sans-serif;
+  }
+
+  @media (max-width:700px){ .projects-grid{grid-template-columns:1fr;} }
+  .skillgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .skillcell{background:var(--surface); padding:16px;}
+  .skillcell b{display:block; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent2); margin-bottom:6px; font-weight:500;}
+
+  .skillgrid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;}
+  .skillcard{
+    background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 24px;
+    opacity:0; transform:translateY(28px); transition:opacity .55s ease, transform .55s ease;
+  }
+  .skillcard.visible{opacity:1; transform:translateY(0);}
+  .skillcard h4{
+    display:flex; align-items:center; gap:8px; margin:0 0 14px; font-size:13px;
+    letter-spacing:.05em; text-transform:uppercase; color:var(--cyan); font-weight:700;
+  }
+  .skillcard h4::before{content:''; width:7px; height:7px; border-radius:50%; background:var(--cyan); flex-shrink:0;}
+  .skillcard ul{list-style:none; margin:0; padding:0;}
+  .skillcard li{
+    padding:10px 0; border-bottom:1px solid var(--line); font-size:14px; color:var(--text);
+    display:flex; align-items:center; gap:8px;
+  }
+  .skillcard li:last-child{border-bottom:none;}
+  .skillcard li::before{content:'›'; color:var(--cyan); font-weight:700;}
+  footer{padding:36px 0 60px; color:var(--muted); font-size:13px; font-family:'IBM Plex Mono',monospace;}
+
+  /* écran de bienvenue */
+  #greeting{
+    position:fixed; inset:0; z-index:9999; background:var(--bg);
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px;
+    transition:opacity .6s ease, visibility .6s ease;
+  }
+  #greeting.hide{opacity:0; visibility:hidden; pointer-events:none;}
+  #greeting .g-text{
+    font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:clamp(34px,8vw,68px);
+    background:linear-gradient(90deg,var(--accent),var(--purple),var(--cyan));
+    background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:greetIn .7s cubic-bezier(.2,.8,.2,1), gradientMove 3s ease infinite;
+  }
+  #greeting .g-sub{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--muted); letter-spacing:.08em; animation:greetIn .7s ease .1s both;}
+  @keyframes greetIn{from{opacity:0; transform:translateY(14px) scale(.94);} to{opacity:1; transform:translateY(0) scale(1);}}
+  @keyframes gradientMove{0%,100%{background-position:0% 50%;} 50%{background-position:100% 50%;}}
+
+  /* mouvement au chargement / au scroll */
+  header, .shell{opacity:0; transition:opacity .5s ease;}
+  body.loaded header, body.loaded .shell{opacity:1;}
+  .hero-text > *{opacity:0; transform:translateY(18px); animation:heroIn .7s ease forwards;}
+  .hero-text .kicker{animation-delay:.05s;}
+  .hero-text h1{animation-delay:.15s;}
+  .hero-text .subtitle{animation-delay:.25s;}
+  .hero-text .desc{animation-delay:.32s;}
+  .hero-text .badges{animation-delay:.4s;}
+  .hero-text .cta{animation-delay:.48s;}
+  @keyframes heroIn{to{opacity:1; transform:translateY(0);}}
+
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+
+  .proj-card{transition:border-color .2s, transform .25s ease, box-shadow .25s ease;}
+  .proj-card:hover{transform:translateY(-6px); box-shadow:0 14px 30px -12px rgba(0,0,0,.5);}
+  .info-card, .step-card, .about-card{transition:transform .25s ease, border-color .2s ease;}
+  .info-card:hover, .step-card:hover{transform:translateY(-3px); border-color:var(--accent);}
+  .badge{transition:transform .2s ease;}
+  .badge:hover{transform:translateY(-2px) scale(1.04);}
+  nav li a{transition:background .2s ease, color .2s ease, padding-left .2s ease;}
+
+  @media (max-width:900px){
+    .shell{flex-direction:column;}
+    aside{width:100%; height:auto; position:relative; border-right:none; border-bottom:1px solid var(--line);}
+    nav ul{display:flex; flex-wrap:wrap; gap:6px;}
+    nav li a{padding:8px 10px;}
+    main{padding:0 20px;}
+    #detailView-inner{padding:24px 20px 50px;}
+  }
+
+
+</style>
+</head>
+<body>
+<div id="greeting">
+  <div class="g-text" id="greetingText">Bonjour</div>
+  <div class="g-sub">PORTFOLIO DE MAFALL NDIAYE</div>
+</div>
+
+<header>
+  <div class="logo">M<span>.</span></div>
+  <div class="status"><span class="dot"></span> Recherche stage · 10 à 12 semaines</div>
+  <div class="clock mono" id="clock">--:--:--</div>
+</header>
+
+<div class="shell">
+  <aside>
+    <p class="navlabel">NAVIGATION</p>
+    <nav>
+      <ul>
+        <li><a href="#hero" class="active"><span class="ic">⌂</span> Accueil</a></li>
+        <li><a href="#about"><span class="ic">◎</span> À propos</a></li>
+        <li><a href="#parcours"><span class="ic">↗</span> Parcours</a></li>
+        <li><a href="#projets"><span class="ic">◇</span> Projets</a></li>
+        <li><a href="#competences"><span class="ic">⊞</span> Compétences</a></li>
+        <li><a href="#contact"><span class="ic">✉</span> Contact</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main>
+
+  <div id="mainView">
+    <section id="hero">
+      <div class="hero-text">
+        <div class="kicker"><span class="rule"></span> <span class="mono">$ whoami</span></div>
+        <h1>Mafall<br><span class="last">NDIAYE.</span></h1>
+        <p class="subtitle">BUT GEII · Université Sorbonne Paris Nord</p>
+        <p class="desc">Étudiant en BUT Génie Électrique et Informatique Industrielle (GEII), je recherche un stage en électronique, informatique industrielle, maintenance ou systèmes embarqués. Je souhaite mettre en pratique mes compétences techniques pour contribuer à des projets industriels.</p>
+        <div class="badges">
+          <span class="badge b1">Quartus</span>
+          <span class="badge b2">PSIM</span>
+          <span class="badge b3">Arduino</span>
+          <span class="badge b4">Électronique</span>
+          <span class="badge b1">VS Code</span>
+          <span class="badge b2">Habilitation électrique</span>
+        </div>
+        <div class="cta">
+          <a href="#about" class="btn btn-primary">En savoir plus</a>
+          <a href="#projets" class="btn btn-ghost">Voir mes projets</a>
+          <button type="button" id="cvDownloadBtn" class="btn btn-cv">↓ CV 🇫🇷</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="block">
+      <h2>À propos</h2>
+      <div class="about-layout">
+        <div class="about-card">
+          <p>Étudiant en BUT Génie Électrique et Informatique Industrielle à l'Université Sorbonne Paris Nord, parcours <strong>Électronique et Systèmes Embarqués</strong>, je m'intéresse particulièrement à l'électronique, l'informatique industrielle et les systèmes embarqués.</p>
+          <p>J'aime partir du besoin concret d'un système avant d'entrer dans le détail technique : dimensionner, simuler puis valider mes choix. C'est cette démarche que j'ai suivie sur mes projets d'études — contrôle d'accès par logique combinatoire, analyseur de gisement solaire, robot Roomba, moteur à courant continu piloté par hacheur série.</p>
+          <p>Je recherche actuellement un <strong>stage de 10 à 12 semaines</strong> pour mettre ces compétences en pratique en entreprise.</p>
+        </div>
+        <div class="info-cards">
+          <div class="info-card"><div class="lbl">FORMATION</div><div class="val">BUT Génie Électrique et Informatique Industrielle</div></div>
+          <div class="info-card"><div class="lbl">PARCOURS</div><div class="val">Électronique et Systèmes Embarqués</div></div>
+          <div class="info-card"><div class="lbl">RECHERCHE</div><div class="val">Stage · 10 à 12 semaines</div></div>
+          <div class="info-card"><div class="lbl">INTÉRÊTS</div><div class="val">Électronique, informatique industrielle, embarqué</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="parcours" class="block">
+      <h2>Parcours</h2>
+      <div class="track">
+        <div class="step">
+          <div class="step-card">
+            <div class="step-meta"><span class="step-years">2024</span><span class="step-tag">Sénégal</span></div>
+            <h3>Baccalauréat scientifique</h3>
+            <p>Spécialités mathématiques, physique et SVT.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-card">
+            <div class="step-meta"><span class="step-years">2024 – 2025</span><span class="step-tag">Sorbonne Paris Nord</span></div>
+            <h3>Licence 1 Sciences pour l'ingénieur</h3>
+            <p>Première année d'enseignement supérieur scientifique avant l'entrée en BUT.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-card">
+            <div class="step-meta"><span class="step-years">2025 – 2028</span><span class="step-tag">Sorbonne Paris Nord</span></div>
+            <h3>BUT Génie Électrique et Informatique Industrielle</h3>
+            <p>Parcours Électronique et Systèmes Embarqués : logique combinatoire, électronique de puissance, automatisme et programmation embarquée.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projets" class="block">
+      <h2>Projets &amp; réalisations</h2>
+      <div class="projects-grid">
+
+        <div class="proj-card" data-project="alarme">
+          <div class="proj-visual v1">🔒</div>
+          <div class="proj-body">
+            <div class="proj-meta">BUT1 · S1</div>
+            <h3>Projet Alarme</h3>
+            <p>Système électronique de contrôle d'accès par code : ouverture d'une porte sur code correct, déclenchement d'une alarme en cas d'erreur, réalisé en logique combinatoire.</p>
+            <div class="proj-tags">
+              <span class="proj-tag t1">Quartus</span>
+              <span class="proj-tag t2">Logique combinatoire</span>
+              <span class="proj-tag t3">ALTERA DE1</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card" data-project="roomba">
+          <div class="proj-visual v3">🤖</div>
+          <div class="proj-body">
+            <div class="proj-meta">BUT1 · S1</div>
+            <h3>Projet Roomba</h3>
+            <p>Mesure de distance par capteur ultrason sur Arduino Uno et étude de la détection de vide d'un robot Roomba, validées par des tests expérimentaux.</p>
+            <div class="proj-tags">
+              <span class="proj-tag t1">Arduino Uno</span>
+              <span class="proj-tag t2">Capteur ultrason</span>
+              <span class="proj-tag t3">Oscilloscope</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card" data-project="velo">
+          <div class="proj-visual v4">⚙️</div>
+          <div class="proj-body">
+            <div class="proj-meta">BUT1 · S2</div>
+            <h3>Projet Vélo — moteur à courant continu</h3>
+            <p>Moteur à courant continu piloté par un hacheur série : simulation PSIM du comparateur PWM, équations du MCC et mesures du rapport cyclique à l'oscilloscope.</p>
+            <div class="proj-tags">
+              <span class="proj-tag t1">PSIM</span>
+              <span class="proj-tag t2">Hacheur série</span>
+              <span class="proj-tag t3">Oscilloscope</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card" data-project="meteo">
+          <div class="proj-visual v2">🌦️</div>
+          <div class="proj-body">
+            <div class="proj-meta">BUT1 · S2</div>
+            <h3>Projet Station Météo</h3>
+            <p>Station météorologique mesurant en temps réel plusieurs paramètres environnementaux : température, humidité et pression atmosphérique.</p>
+            <div class="proj-tags">
+              <span class="proj-tag t1">Capteurs environnementaux</span>
+              <span class="proj-tag t2">Mesure temps réel</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card" data-project="ags">
+          <div class="proj-visual v2">☀️</div>
+          <div class="proj-body">
+            <div class="proj-meta">BUT2</div>
+            <h3>Projet AGS — Analyseur de Gisement Solaire</h3>
+            <p>Interface de supervision LabVIEW, logiciel embarqué sur PIC18F4525 et carte d'acquisitions analogiques (tension panneau PV, sonde de température CTN).</p>
+            <div class="proj-tags">
+              <span class="proj-tag t1">LabVIEW</span>
+              <span class="proj-tag t2">MPLAB XC8</span>
+              <span class="proj-tag t3">PIC18F4525</span>
+            </div>
+          </div>
+        </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="competences" class="block">
+      <h2>Compétences</h2>
+      <div class="skillgrid2">
+        <div class="skillcard">
+          <h4>Électronique numérique</h4>
+          <ul>
+            <li>Quartus II</li>
+            <li>Logique combinatoire</li>
+            <li>Cartes de Karnaugh</li>
+            <li>Carte ALTERA DE1</li>
+          </ul>
+        </div>
+        <div class="skillcard">
+          <h4>Simulation &amp; supervision</h4>
+          <ul>
+            <li>PSIM</li>
+            <li>LabVIEW</li>
+          </ul>
+        </div>
+        <div class="skillcard">
+          <h4>Systèmes embarqués</h4>
+          <ul>
+            <li>MPLAB XC8</li>
+            <li>PIC18F4525</li>
+            <li>Arduino Uno</li>
+            <li>ESP32</li>
+          </ul>
+        </div>
+        <div class="skillcard">
+          <h4>Outils &amp; logiciels</h4>
+          <ul>
+            <li>VS Code</li>
+            <li>Excel</li>
+            <li>M5Soft</li>
+          </ul>
+        </div>
+        <div class="skillcard">
+          <h4>Habilitation</h4>
+          <ul>
+            <li>Habilitation électrique</li>
+          </ul>
+        </div>
+        <div class="skillcard">
+          <h4>Savoir-être</h4>
+          <ul>
+            <li>Travail d'équipe</li>
+            <li>Gestion du stress</li>
+            <li>Gestion du temps</li>
+            <li>Autonomie</li>
+            <li>Rigueur et méthodologie</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="block">
+      <h2>Contact</h2>
+      <p class="mono">📞 07 48 49 22 65</p>
+      <p class="mono">✉ ndiayemafall.pro@gmail.com</p>
+      <p class="mono">📍 Bagneux</p>
+    </section>
+
+    <footer>Mafall NDIAYE · BUT GEII · Université Sorbonne Paris Nord</footer>
+
+  </div>
+
+  <div id="detailView">
+   <div id="detailView-inner">
+    <div class="detail-nav"><button class="detail-back" id="detailBack">← Retour au portfolio</button></div>
+    <div class="detail-meta" id="detailMeta"></div>
+    <h1 class="detail-title" id="detailTitle"></h1>
+    <p class="detail-sub" id="detailSub"></p>
+
+    <div class="obj-box">
+      <div class="diamond">◆</div>
+      <div>
+        <div class="lbl">OBJECTIF DU PROJET</div>
+        <p id="detailObjTitle" style="color:var(--text); font-weight:700; margin-bottom:10px;"></p>
+        <p id="detailObjText"></p>
+      </div>
+    </div>
+
+    <div class="dsec">
+      <p class="dsec-h">📌 Contexte</p>
+      <p id="detailContexte"></p>
+    </div>
+
+    <div class="dsec">
+      <p class="dsec-h">🎯 Objectifs</p>
+      <ul class="dlist" id="detailObjectifs"></ul>
+    </div>
+
+    <div class="dsec">
+      <p class="dsec-h">⚙️ Ce que j'ai fait</p>
+      <ul class="dlist" id="detailFait"></ul>
+    </div>
+
+    <div class="dsec" id="detailCRWrap">
+      <p class="dsec-h">📝 Compte rendu</p>
+      <div id="detailCompteRendu"></div>
+      <a id="detailPdfBtn" class="pdf-btn" href="#" target="_blank" rel="noopener">📄 Télécharger le compte rendu complet (PDF)</a>
+      <a id="detailPptBtn" class="pdf-btn" href="#" target="_blank" rel="noopener" style="margin-left:10px;">🖥️ Télécharger la présentation (PDF)</a>
+    </div>
+
+    <div class="dsec">
+      <p class="dsec-h">✅ Résultat</p>
+      <p id="detailResultat"></p>
+    </div>
+
+    <div class="note-card retiens">
+      <h5>💡 Ce que j'en retiens</h5>
+      <p id="detailRetiens"></p>
+    </div>
+
+    <div class="note-card axes">
+      <h5>📈 Axes d'amélioration</h5>
+      <p id="detailAxes"></p>
+    </div>
+
+    <div class="dtags" id="detailTags"></div>
+
+    <button class="back-projects" id="detailBackBtn">← Retour aux projets</button>
+   </div>
+  </div>
+
+  </main>
+</div>
+
+<script>
+  function tick(){
+    var d = new Date();
+    var pad = function(x){ return String(x).padStart(2,'0'); };
+    document.getElementById('clock').textContent = pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  var links = document.querySelectorAll('nav a');
+  var sections = document.querySelectorAll('main section');
+  window.addEventListener('scroll', function(){
+    var pos = window.scrollY + 120;
+    sections.forEach(function(sec, i){
+      if(pos >= sec.offsetTop && pos < sec.offsetTop + sec.offsetHeight){
+        links.forEach(function(l){ l.classList.remove('active'); });
+        links[i] && links[i].classList.add('active');
+      }
+    });
+  });
+  var PROJECTS = {
+    alarme: {
+      meta: "BUT GEII · 2025-2026 · avec Arthur Goreacioc",
+      title: "Projet Alarme",
+      sub: "Contrôle d'accès par logique combinatoire — carte ALTERA DE1 · encadré par M. Henri Jean-Marie",
+      objTitle: "Concevoir un système de contrôle d'accès par code",
+      objText: "Concevoir un circuit électronique permettant de contrôler l'ouverture d'une porte protégée par un code d'accès, en assurant une sécurité optimale contre les tentatives d'intrusion, à l'aide de la carte didactique ALTERA DE1.",
+      contexte: "Projet réalisé en binôme avec Arthur Goreacioc, encadré par M. Henri Jean-Marie. Le circuit conçu comporte cinq blocs fonctionnels : comparaison du code saisi et du code d'accès, contrôle du code d'accès, génération de l'alarme, ouverture de la porte et affichage 7 segments.",
+      objectifs: ["Concevoir un circuit de contrôle d'accès par code", "Déclencher une alarme en cas d'erreur ou de tentative non autorisée", "Mettre en œuvre la logique combinatoire sur carte ALTERA DE1"],
+      fait: ["Établissement des tables de vérité et cartes de Karnaugh pour chaque bloc", "Bloc génération d'alarme : SA = GO_M./I0 + GO_C.I1", "Bloc ouverture de la porte : SP = GO_C.GO_M./I1.I0", "Bloc de comparaison du code (comparateur 7485, sortie inversée si les codes diffèrent)", "Bloc de contrôle du code d'accès par multiplexeur 74151 (détection de deux 1 consécutifs)", "Implémentation et simulation du logigramme complet sous Quartus II"],
+      compteRendu: [
+        "Le circuit complet s'articule autour de cinq blocs : un bloc de comparaison code saisi/code d'accès (comparateur 7485, sortie A≠B), un bloc de contrôle du code d'accès (multiplexeur 74151 détectant si le code contient deux 1 consécutifs), un bloc de génération d'alarme, un bloc d'ouverture de la porte, et l'affichage 7 segments (FLEX_DIGIT).",
+        "Pour le bloc alarme, la table de vérité croisant GO_C, GO_M, I0 et I1 a été simplifiée par carte de Karnaugh, donnant l'équation SA = GO_M./I0 + GO_C.I1 : l'alarme se déclenche si un code invalide est positionné par le responsable, ou si un mauvais code est saisi par l'utilisateur.",
+        "Pour le bloc d'ouverture, la même démarche donne SP = GO_C.GO_M./I1.I0 : la porte ne s'ouvre que lorsque le code a été validé (GO_C = GO_M = 1), que le code saisi est identique au code secret (I1 = 0) et que le code respecte les règles de sécurité (I0 = 1).",
+        "Chaque bloc a été simulé sous Quartus II avant d'être testé sur la carte ALTERA DE1 : les signaux SA et SP obtenus lors des simulations correspondent en tout point aux tables de vérité établies théoriquement.",
+        "Sur la carte DE1, on observe que la porte s'ouvre lorsque deux 1 consécutifs sont appliqués en entrée sur le code de contrôle, et que l'alarme se déclenche bien lorsqu'un code incorrect est saisi, avec affichage sur les afficheurs 7 segments."
+      ],
+      resultat: "Circuit fonctionnel validé sur la carte DE1 : le code correct ouvre la porte, tout code erroné ou toute anomalie sur le code secret déclenche l'alarme, conformément aux tables de vérité.",
+      retiens: "Ce projet m'a permis de manipuler concrètement la logique combinatoire au-delà de la théorie, de la table de vérité jusqu'au circuit réel testé sur FPGA.",
+      axes: "Le circuit pourrait être étendu avec une temporisation anti-bruteforce ou un historique des tentatives.",
+      tags: ["Quartus II", "Logique combinatoire", "ALTERA DE1", "Karnaugh"],
+      pdf: "alarme_compte-rendu.pdf"
+      ,ppt: "alarme_presentation.pdf"
+    },
+    ags: {
+      meta: "BUT2",
+      title: "Projet AGS — Analyseur de Gisement Solaire",
+      sub: "Supervision LabVIEW et microcontrôleur PIC18F4525",
+      objTitle: "Superviser et piloter un analyseur de gisement solaire",
+      objText: "Projet d'études en quatre volets : interface de supervision LabVIEW, logiciel embarqué sur microcontrôleur PIC18F4525, carte d'acquisitions analogiques (tension panneau PV, sonde de température CTN) et intégration matérielle/logicielle.",
+      contexte: "Projet d'études encadré, mené en parallèle du TP « Analyse de gisement solaire » (logiciel SOLEÏS AGS), portant sur l'impact de l'orientation, l'inclinaison et les ombrages sur le productible photovoltaïque.",
+      objectifs: ["Réaliser une interface de supervision LabVIEW connectée à la valise AGS", "Développer le logiciel embarqué sur PIC18F4525", "Concevoir la carte d'acquisitions analogiques (tension PV, température)"],
+      fait: ["Prise en main de LabVIEW (VI, structures condition/itératives/While)", "Développement sur MPLAB X avec XC8 (projet AGS.X)", "Test et validation d'un code de clignotement LED sur carte de démo Microchip, à l'oscilloscope"],
+      resultat: "Code de clignotement LED validé à l'oscilloscope sur la carte de démo (PIC18F4525), étape de validation avant le passage sur la carte AGS d'origine.",
+      retiens: "J'ai découvert la complémentarité entre la supervision LabVIEW et le développement bas niveau sur microcontrôleur, deux facettes d'un même projet embarqué.",
+      axes: "Finaliser l'intégration complète Hard/Soft avec la carte AGS d'origine plutôt qu'avec la carte de démo.",
+      tags: ["LabVIEW", "MPLAB XC8", "PIC18F4525", "PICkit 3"]
+    },
+    roomba: {
+      meta: "BUT GEII · 2025-2026 · avec Arthur Goreacioc",
+      title: "Projet Roomba",
+      sub: "Arduino Uno, capteur ultrason et détection de vide FP3 · encadré par Mme Kraiem Sana",
+      objTitle: "Mesurer une distance et étudier la fonction de détection de vide FP3",
+      objText: "Étudier la télémétrie à ultrasons sur carte Arduino Uno, puis analyser la fonction FP3 (détection du vide) d'un robot aspirateur Roomba : génération du signal modulé, émission/réception infrarouge, conversion fréquence-tension et comparaison à un seuil.",
+      contexte: "Projet en binôme avec Arthur Goreacioc, encadré par Mme Kraiem Sana. Première partie : télémétrie à ultrasons sur Arduino Uno (capteur SRF-05 / HC-SR04). Seconde partie : analyse de la chaîne fonctionnelle FP3 du Roomba (iRobot), qui permet de détecter l'absence de sol (escaliers) pour éviter les chutes.",
+      objectifs: ["Programmer la génération et la mesure d'un signal ultrason sur Arduino Uno", "Calculer automatiquement la distance à partir du temps de vol de l'onde", "Identifier les 5 fonctions secondaires de FP3 (FS3.1 à FS3.5) et leurs signaux", "Vérifier expérimentalement chaque étage de la chaîne FP3"],
+      fait: ["Câblage du capteur ultrason (trigPin/echoPin) et programmation Arduino (pulseIn, distance = duration/58)", "Relevé de la durée d'impulsion Echo pour des distances de 5 à 30 cm", "Étude des 5 fonctions secondaires de FP3 : génération du signal modulant, émission IR, réception IR, conversion fréquence-tension, comparaison à seuil", "Mesures à l'oscilloscope de la charge du condensateur (Vc(t)) et vérification par la formule d'Helmholtz", "Calcul de la tension de sortie du convertisseur fréquence-tension (V0 ≈ 4,1 V) et réglage du seuil de comparaison (RV1 = 4168 Ω)"],
+      compteRendu: [
+        "La première partie du projet a consisté à instrumenter un télémètre à ultrasons sur Arduino Uno : génération d'une impulsion trigger de 10 µs, mesure de la largeur de l'impulsion Echo renvoyée par le capteur SRF-05/HC-SR04, puis calcul de la distance (distance = duration/58). Les relevés expérimentaux montrent une durée d'impulsion croissant linéairement avec la distance (310 µs à 5 cm, jusqu'à 1875 µs à 30 cm), cohérente avec la vitesse du son de 340 m/s.",
+        "La seconde partie porte sur la fonction FP3 du robot Roomba, qui utilise des capteurs infrarouges dirigés vers le sol pour détecter l'absence de surface (vide/escalier) et éviter une chute. Cette fonction se décompose en 5 sous-fonctions : FS3.1 génère un signal modulant (horloge 1 Hz, rapport cyclique 0,5), FS3.2 assure l'émission infrarouge, FS3.3 la réception infrarouge, FS3.4 la conversion fréquence-tension, et FS3.5 la comparaison à un seuil produisant le signal logique VDECT_VIDE.",
+        "Les mesures à l'oscilloscope sur le montage FS3.1 ont permis de vérifier la charge du condensateur : Vc(t) mesuré à 3,32 V correspond à la valeur calculée par la formule d'Helmholtz (≈3,17 V), validant le modèle RC (R = 16,8 kΩ, temps caractéristique ≈1,68 ms).",
+        "Sur la fonction FS3.4 (conversion fréquence-tension), le calcul théorique donne une tension de sortie V0 ≈ 4,1 V. Le réglage du seuil de comparaison de la fonction FS3.5 a nécessité un ajustement de la résistance variable RV1 à 4168 Ω pour un basculement correct de la sortie logique."
+      ],
+      resultat: "Mesures expérimentales concluantes sur les deux parties : la mesure de distance par ultrason est validée (distance ∝ durée d'impulsion Echo), et chaque étage de la chaîne FP3 a été câblé, mesuré et vérifié conforme aux calculs théoriques.",
+      retiens: "J'ai renforcé mes compétences en câblage, en traitement de signaux analogiques et en mesures à l'oscilloscope, en reliant la théorie (formule d'Helmholtz, conversion fréquence-tension) à un cas d'usage réel de robotique domestique.",
+      axes: "Intégrer les deux fonctions (mesure de distance et détection de vide) sur un seul robot mobile complet plutôt qu'étudiées séparément.",
+      tags: ["Arduino Uno", "Capteur ultrason", "Oscilloscope", "FP3 Roomba"],
+      pdf: "roomba_compte-rendu.pdf"
+      ,ppt: "roomba_presentation.pdf"
+    },
+    velo: {
+      meta: "BUT GEII · Mai 2026 · avec Shazil Butt",
+      title: "Projet Vélo — moteur à courant continu",
+      sub: "Hacheur série (SG3525) et variateur de vitesse — simulation PSIM",
+      objTitle: "Concevoir une carte de commande pour moteur à courant continu de vélo électrique",
+      objText: "Concevoir et réaliser une carte électronique dédiée au contrôle d'un moteur à courant continu (MCC) intégré dans un système d'assistance au pédalage, avec un hacheur série commandé par le circuit SG3525 et le driver IR2113.",
+      contexte: "Projet réalisé en binôme avec Shazil Butt. Le moteur ne fonctionne que lorsque l'utilisateur pédale activement ; l'alimentation est coupée à l'arrêt du pédalage ou au-delà d'un seuil de vitesse. La variation de vitesse est assurée par un hacheur série découpant la tension à 10 kHz.",
+      objectifs: ["Étudier le fonctionnement du MCC (équations Um = E + R·I + L·dI/dt, puis Um = E + R·I en régime permanent)", "Dimensionner et simuler sous PSIM un hacheur série commandé par PWM", "Réaliser la carte électronique (partie commande SG3525/IR2113, partie puissance IRF740 + diode de roue libre)", "Valider expérimentalement le rapport cyclique et le fonctionnement du moteur"],
+      fait: ["Simulation PSIM du comparateur PWM pour Vcons = 0,25 V, 2,5 V et 7,5 V (rapport cyclique ≈2,5 %, 25 % et 75 %)", "Dimensionnement de l'oscillateur SG3525 : RT = 6,8 kΩ, CT = 22 nF, soit f ≈ 9550 Hz ≈ 10 kHz", "Essais sur plaquette : relevé du rapport cyclique en fonction de la tension d'entrée (0 % à 40 % entre 0,1 V et 2,7 V), courbe linéaire validant Um = α×Usource", "Réalisation de la fonction logique OU (deux diodes + résistance 1 kΩ) pour porter le rapport cyclique de 0 à 100 %", "Réalisation de la carte électronique complète et test du moteur avec variation de vitesse au potentiomètre"],
+      compteRendu: [
+        "Le rapport s'ouvre sur l'étude théorique du moteur à courant continu (MCC) : en régime transitoire, Um = E + R·I + L·(dI/dt) ; en régime permanent (dI/dt = 0), Um = E + R·I. La vitesse du moteur dépend directement de la tension moyenne appliquée Um, elle-même pilotée par un hacheur série selon Um = α × Usource (α étant le rapport cyclique).",
+        "Sous PSIM, la commande du hacheur a été simulée par comparaison entre une tension triangulaire Vtri (5000 Hz) et une tension de consigne Vcons. Pour Vcons = 0,25 V, le rapport cyclique obtenu est très faible (α ≈ 2,5 %) ; pour Vcons = 2,5 V, α ≈ 25 % ; pour Vcons = 7,5 V, α ≈ 75 %, confirmant que le rapport cyclique — et donc la tension moyenne et la vitesse du moteur — croît proportionnellement à la tension de consigne.",
+        "Pour l'implémentation réelle, le couple RT = 6,8 kΩ / CT = 22 nF a été choisi sur l'abaque du SG3525 pour obtenir une fréquence d'oscillation f = 1/(RT×CT×0,7) ≈ 9550 Hz, soit environ 10 kHz. Les essais sur plaquette ont ensuite montré une relation linéaire entre la tension d'entrée (0,1 V à 2,7 V) et le rapport cyclique mesuré (0 % à 40 %), validant expérimentalement la relation Um = α×Usource.",
+        "Un problème de fréquence de sortie limitée à 5 kHz (au lieu de 10 kHz attendus) a été résolu en additionnant les deux sorties complémentaires du SG3525 via une fonction logique OU (deux diodes et une résistance de 1 kΩ), permettant d'obtenir un rapport cyclique complet de 0 à 100 %.",
+        "La carte électronique finale, associant la partie commande (SG3525 + driver IR2113) et la partie puissance (MOSFET IRF740 + diode de roue libre), a été réalisée, soudée puis testée : dès la mise sous tension, le moteur tourne, et la vitesse varie progressivement et de façon cohérente lorsqu'on agit sur le potentiomètre."
+      ],
+      resultat: "Prototype fonctionnel : le moteur démarre à la mise sous tension et sa vitesse varie progressivement avec le potentiomètre, confirmant que le hacheur série contrôle correctement la tension moyenne délivrée au MCC.",
+      retiens: "Ce projet m'a permis de relier simulation PSIM, calculs théoriques (MCC, oscillateur SG3525) et mesures réelles sur plaquette puis sur carte, jusqu'à un prototype fonctionnel complet.",
+      axes: "Tester le hacheur en charge réelle sur le vélo (et non plus seulement sur banc), et affiner la protection contre les surtensions.",
+      tags: ["PSIM", "Hacheur série", "SG3525", "MCC", "Oscilloscope"],
+      pdf: "velo_compte-rendu.pdf"
+      ,ppt: "velo_presentation.pdf"
+    },
+    meteo: {
+      meta: "BUT1 GEII TD_C · 2025-2026 · avec Sarr Mansour, Saiche Massil, Guedjali Riyad",
+      title: "Projet Station Météo",
+      sub: "ESP32, matrice LED HUB75 et capteurs I2C · encadré par M. Jean Marie Henri",
+      objTitle: "Concevoir une station météo connectée et éco-responsable",
+      objText: "Concevoir et programmer une station météo connectée à l'aide d'un microcontrôleur ESP32 et d'une matrice LED RGB 32×64 (protocole HUB75), affichant l'heure synchronisée par NTP ainsi que la température, l'humidité et la luminosité acquises en temps réel via un bus I2C.",
+      contexte: "Projet réalisé en équipe de quatre (Sarr Mansour, Saiche Massil, Ndiaye Mafall, Guedjali Riyad), encadré par M. Jean Marie Henri, en trois séquences : maîtrise bas niveau du protocole HUB75, exploitation de bibliothèques et synchronisation NTP, puis acquisition I2C et rétroaction lumineuse.",
+      objectifs: ["Maîtriser le protocole HUB75 bas niveau (registres à décalage, multiplexage, latch)", "Exploiter le contrôleur DMA pour un affichage stable et une synchronisation NTP de l'heure", "Acquérir température, humidité (AHT20) et luminosité (BH1750) via le bus I2C", "Adapter automatiquement la luminosité du panneau selon la lumière ambiante"],
+      fait: ["Séquence 1 : initialisation de la broche OE, écriture de la fonction envoyer64Pixels() et de la temporisation LATCH, décodage des adresses de ligne (bus ABCD)", "Séquence 2 : passage à la bibliothèque ESP32-HUB75-MatrixPanel-I2S-DMA pour un affichage non bloquant, synchronisation de l'heure via NTP (pool.ntp.org)", "Séquence 3 : scan du bus I2C pour identifier les capteurs AHT20 (température/humidité) et BH1750 (luminosité)", "Écriture de la fonction adapterLuminosite() (map linéaire entre 10 et 1000 lux vers une intensité de 10 à 255)", "Utilisation de millis() plutôt que delay() pour rafraîchir l'affichage (50 ms) et lire les capteurs (2 s) de façon asynchrone"],
+      compteRendu: [
+        "En séquence 1, le travail a porté sur la maîtrise bas niveau du protocole HUB75 : la broche OE (Output Enable), active à l'état bas, doit être mise à HIGH au démarrage pour garder le panneau éteint ; la fonction envoyer64Pixels() charge les 64 colonnes en série avant de générer une impulsion sur la broche LAT pendant que OE est inactif, afin d'éviter le ghosting. Le bus d'adresse A/B/C/D, câblé en parallèle sur les deux moitiés du panneau, sélectionne simultanément deux lignes (multiplexage partagé) : les données non connectées provoquent alors des parasites sur la zone basse.",
+        "En séquence 2, l'utilisation de la bibliothèque ESP32-HUB75-MatrixPanel-I2S-DMA a permis de confier l'envoi des données au contrôleur DMA, libérant le processeur principal (un delay() n'éteint plus l'écran). L'heure est synchronisée au démarrage via le protocole NTP (pool.ntp.org) — avec pour limite l'absence de RTC de secours en cas de coupure Wi-Fi. Le calcul d'encombrement a montré qu'une chaîne comme « lundi 08 juin » (78 pixels en police 5×7) dépasse la largeur de 64 pixels du panneau et nécessite un défilement.",
+        "En séquence 3, un scan du bus I2C a permis d'identifier les adresses des capteurs AHT20 (température/humidité) et BH1750 (luminosité). La fonction adapterLuminosite() ajuste la luminosité du panneau (setBrightness8) selon trois plages : intensité minimale (10/255) en dessous de 10 lux, intensité maximale (255/255) au-delà de 1000 lux, et une interpolation linéaire (map) entre les deux. L'utilisation de millis() plutôt que delay() permet de rafraîchir l'affichage toutes les 50 ms tout en interrogeant les capteurs I2C toutes les 2 secondes, sans bloquer le programme.",
+        "Les résultats finaux montrent la station affichant en luminosité basse « L: 21x, T: 27,2°C, H: 53% » et, en forte luminosité ambiante, une intensité lumineuse du panneau nettement supérieure (« L: 9958 lx »), confirmant que l'éclairement du panneau suit bien la luminosité ambiante mesurée par le BH1750."
+      ],
+      resultat: "Station météo fonctionnelle affichant l'heure synchronisée par NTP ainsi que la température, l'humidité et la luminosité mesurées en temps réel, avec adaptation automatique de la luminosité du panneau selon la lumière ambiante.",
+      retiens: "Ce projet en équipe a permis d'assimiler la gestion bas niveau des registres à décalage et du multiplexage temporel, puis d'exploiter des bibliothèques et un algorithme d'éco-conception pour un système embarqué complet et autonome.",
+      axes: "Ajouter la mesure de pression atmosphérique et un historique des mesures affiché en défilement sur le panneau.",
+      tags: ["ESP32", "HUB75", "I2C", "DMA", "NTP"],
+      pdf: "station-meteo_compte-rendu.pdf"
+    }
+  };
+
+  function openProject(id){
+    var p = PROJECTS[id];
+    if(!p) return;
+    document.getElementById('detailMeta').textContent = p.meta;
+    document.getElementById('detailTitle').textContent = p.title;
+    document.getElementById('detailSub').textContent = p.sub;
+    document.getElementById('detailObjTitle').textContent = p.objTitle;
+    document.getElementById('detailObjText').textContent = p.objText;
+    document.getElementById('detailContexte').textContent = p.contexte;
+    document.getElementById('detailResultat').textContent = p.resultat;
+    document.getElementById('detailRetiens').textContent = p.retiens;
+    document.getElementById('detailAxes').textContent = p.axes;
+
+    var objUl = document.getElementById('detailObjectifs'); objUl.innerHTML = '';
+    p.objectifs.forEach(function(t){ var li = document.createElement('li'); li.textContent = t; objUl.appendChild(li); });
+
+    var faitUl = document.getElementById('detailFait'); faitUl.innerHTML = '';
+    p.fait.forEach(function(t){ var li = document.createElement('li'); li.textContent = t; faitUl.appendChild(li); });
+
+    var crWrap = document.getElementById('detailCRWrap');
+    var crDiv = document.getElementById('detailCompteRendu');
+    var pdfBtn = document.getElementById('detailPdfBtn');
+    if(p.compteRendu && p.compteRendu.length){
+      crWrap.style.display = '';
+      crDiv.innerHTML = '';
+      p.compteRendu.forEach(function(t){ var para = document.createElement('p'); para.textContent = t; crDiv.appendChild(para); });
+    } else {
+      crWrap.style.display = p.pdf ? '' : 'none';
+      crDiv.innerHTML = '';
+    }
+    if(p.pdf){
+      pdfBtn.style.display = 'inline-flex';
+      pdfBtn.setAttribute('href', p.pdf);
+      pdfBtn.setAttribute('download', '');
+    } else {
+      pdfBtn.style.display = 'none';
+    }
+    var pptBtn = document.getElementById('detailPptBtn');
+    if(p.ppt){
+      pptBtn.style.display = 'inline-flex';
+      pptBtn.setAttribute('href', p.ppt);
+      pptBtn.setAttribute('download', '');
+    } else {
+      pptBtn.style.display = 'none';
+    }
+
+    var tagsDiv = document.getElementById('detailTags'); tagsDiv.innerHTML = '';
+    p.tags.forEach(function(t, i){ var s = document.createElement('span'); s.className = 't' + ((i % 4) + 1); s.textContent = t; tagsDiv.appendChild(s); });
+
+    document.getElementById('mainView').classList.add('hide');
+    document.getElementById('detailView').classList.add('show');
+    document.getElementById('detailView').scrollTop = 0;
+  }
+
+  function closeProject(){
+    document.getElementById('detailView').classList.remove('show');
+    document.getElementById('mainView').classList.remove('hide');
+  }
+
+  document.querySelectorAll('.proj-card').forEach(function(card){
+    card.addEventListener('click', function(){ openProject(card.getAttribute('data-project')); });
+  });
+  document.getElementById('detailBack').addEventListener('click', closeProject);
+  document.getElementById('detailBackBtn').addEventListener('click', closeProject);
+
+  var skillObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ entry.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.skillcard, .proj-card, .step-card, .about-card, .info-card').forEach(function(card){
+    card.classList.add('reveal');
+    skillObserver.observe(card);
+  });
+
+  // --- Téléchargement du CV (capacité "downloads") ---
+  var CV_B64 = null;
+
+  function base64ToBlob(b64Data, contentType){
+    var byteChars = atob(b64Data);
+    var byteNumbers = new Array(byteChars.length);
+    for (var i = 0; i < byteChars.length; i++) {
+      byteNumbers[i] = byteChars.charCodeAt(i);
+    }
+    var byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: contentType });
+  }
+
+  function downloadCV(){
+    var a = document.createElement('a');
+    a.href = 'CV_Mafall_NDIAYE.pdf';
+    a.download = 'CV_Mafall_NDIAYE.pdf';
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  var cvBtn = document.getElementById('cvDownloadBtn');
+  if (cvBtn) { cvBtn.addEventListener('click', downloadCV); }
+
+  // Écran de bienvenue : Bonjour le jour, Bonsoir le soir/la nuit
+  var h = new Date().getHours();
+  document.getElementById('greetingText').textContent = (h >= 5 && h < 18) ? 'Bonjour' : 'Bonsoir';
+  document.body.style.overflow = 'hidden';
+  setTimeout(function(){
+    document.getElementById('greeting').classList.add('hide');
+    document.body.classList.add('loaded');
+    document.body.style.overflow = '';
+  }, 1600);
+</script>
+
+</body>
+</html>
